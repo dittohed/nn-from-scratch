@@ -2,6 +2,11 @@ import numpy as np
 
 
 class NumpyDataLoader:
+    """
+    Simplified custom implementation of `torch.utils.data.DataLoader` that
+    operates on NumPy arrays.
+    """
+
     def __init__(
         self, x: np.array, y: np.array, batch_size: int, shuffle: bool = False
     ):
