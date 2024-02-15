@@ -1,8 +1,5 @@
 import numpy as np
 
-from tqdm import tqdm
-
-from losses import Loss
 from utils import append_ones
 
 
@@ -23,26 +20,21 @@ class MLP:
                 layer.activations = x
                 layer.d_activations = layer.activation_fn.d_fn(logits)
 
-        return x[:-1]  # Ignore appended ones
+        return x[:, :-1]  # Discard appended ones
 
-    def backward(self, x: np.array, lr: float) -> None:
+    def backward(self, x: np.array, lr: float, momentum: float = 0.9) -> None:
         batch_size = x.shape[0]
 
         for i, layer in reversed(list(enumerate(self.layers))):
             if i > 0:
                 prev_layer = self.layers[i-1]
-                prev_layer.delta = (layer.w[:-1] @ layer.delta.T) * prev_layer.d_activations.T
-
+                prev_layer.delta = (layer.delta @ layer.w[:-1].T) * prev_layer.d_activations
                 prev_activations = prev_layer.activations
             else:
                 prev_activations = x
 
             # Take average, not total gradient
-            grad = (prev_activations.T @ layer.delta) / batch_size 
-            layer.w -= lr * grad
+            grad = (prev_activations.T @ layer.delta) / batch_size
 
-    def train(self, data: list, loss: Loss, lr: float) -> None:
-        for (x, y_true) in tqdm(data):
-            y_proba = self.forward(x)
-            self.layers[-1].delta = loss.delta_fn(y_true, y_proba)
-            self.backward(x, lr)
+            layer.m = momentum * layer.m - lr * grad
+            layer.w += layer.m

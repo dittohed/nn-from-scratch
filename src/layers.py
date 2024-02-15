@@ -17,7 +17,9 @@ class Linear:
         self.d_activations = None
 
     def _init_weights(self) -> None:
-        self.w = np.random.normal(
-            scale=0.01, size=(self._input_size+1, self._output_size)
+        limit = np.sqrt(1/self._input_size)
+        self.w = np.random.uniform(
+            -limit, limit, size=(self._input_size+1, self._output_size)
         ).astype(np.float32)
-        self.w[-1] = 0  # Set biases to 0
+
+        self.m = np.zeros_like(self.w)
