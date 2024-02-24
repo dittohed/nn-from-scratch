@@ -32,7 +32,11 @@ class NumpyDataLoader:
             self._reset(from_batches=True)
             raise StopIteration
         
-    def _reset(self, from_batches=False) -> None:
+    def _reset(self, from_batches: bool = False) -> None:
+        """
+        Shuffle data (optionally), then split it into batches.
+        """
+
         self._index = 0
 
         if from_batches:
