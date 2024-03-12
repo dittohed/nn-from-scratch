@@ -1,9 +1,9 @@
 # nn-from-scratch
 
-A **tiny NumPy-based library** for **implementing simple neural networks**.
+A tiny library for **implementing simple neural networks**. **Written in pure NumPy**.
 
 The library has been **created for educational purposes** - it's a good place
-**if you'd like to see how basic models like MLP and CNN could be implemented from scratch (in pure NumPy).**.
+if you can't wait to **see how basic models like MLP and CNN could be implemented from scratch**.
 
 ### Examples
 
