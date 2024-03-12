@@ -1,6 +1,6 @@
-import numpy as np
-
 from abc import ABC, abstractmethod
+
+import numpy as np
 
 
 class Loss(ABC):
@@ -24,7 +24,6 @@ class Loss(ABC):
             y_true (np.array):
                 True probabilities.
         """
-
         pass
 
 
