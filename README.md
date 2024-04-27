@@ -26,5 +26,5 @@ The derivation of the formulas used in the code will be posted soon!
 
 ### Requirements
 
-See [requirements.txt](./requirements.txt).
+See [requirements.txt](./requirements.txt) (Python 3.10.12, CPU).
 
